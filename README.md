@@ -24,7 +24,7 @@ Install all requirements: `pip install -r requirements.txt`
 
 ## Description
 
-This application allows you to add real estate properties for sales as well as to manage realtors that are selling those properties. You can do so by using the Django admin panel or by sending http requests to the api endpoints for specific action. This app is the part of the AR Realty front end website which can be found [here](https://ar-realty-client.vercel.app/). This app is using Cloudinary to store media files for listings, realtors, users and all other media related to your website. Cloudinary is good to quickly and easily create, manage and deliver digital experiences across any browser, device and bandwidth.
+This application allows you to add real estate properties for sales as well as manage realtor accounts that are selling those properties. You can do so by using the Django admin panel or by sending http requests to the API endpoints for specific action. This app is the part of the AR Realty front end website which can be found [here](https://ar-realty-client.vercel.app/). This app is using Cloudinary to store media files for listings, realtors, users, and all other media related to your website. Cloudinary is good to quickly create, manage, and deliver digital experiences across any browser, device, or bandwidth.
 
 ## Technologies used
 
