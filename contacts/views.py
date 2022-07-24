@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from contacts.models import Inquiry, BusinessInquiry
 from contacts.serializers import InquirySerializer, BusinessInquirySerializer
+from properties.models import Listing
 
 
 # Create InquiryViewSet
@@ -15,8 +16,11 @@ class CreateInquiry(generics.ListCreateAPIView):
         inquiry["user_id"] = user_id
         listing_id = inquiry["listing_id"]
 
-        if Inquiry.objects.filter(user_id=user_id, listing_id=listing_id).exists():
-            raise ValueError("User already has an inquiry")
+        listing_exists = Listing.objects.filter(id=listing_id).exists()
+        inquiry_exists = Inquiry.objects.filter(listing_id=listing_id, user_id=user_id).exists()
+
+        if listing_exists and not inquiry_exists:
+            raise ValueError("User already has an inquiry for this listing")
         else:
             serializer.save(**inquiry)
 

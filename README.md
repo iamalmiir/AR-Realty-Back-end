@@ -14,7 +14,7 @@
 > Please make sure to create your own .env file with all necessary credentials before you continue. [^1] [^2]
 
 [^1]: You can see `.env.example` file.
-[^2]: _Following commands are for macOS_
+[^2]: _Following commands are for macOS or Ubuntu_
 
 Create virtual environment: `python -m venv ./venv`
 
