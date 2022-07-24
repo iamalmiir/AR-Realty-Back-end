@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 from properties.choices import get_state_abbreviation
 from properties.models import Listing
-from properties.pagination import SmallResultsSetPagination
+from properties.pagination import SixResultsPagination
 from properties.serializers import ListingSerializer
 
 
@@ -12,7 +12,7 @@ class ListingList(generics.ListCreateAPIView):
 
     serializer_class = ListingSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    pagination_class = SmallResultsSetPagination
+    pagination_class = SixResultsPagination
 
 
 # Get the Property object by filtering by slug

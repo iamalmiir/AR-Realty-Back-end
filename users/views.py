@@ -48,7 +48,6 @@ class UserView(APIView):
 
 
 class UserDashboard(APIView):
-    # Only if user is logged in
     permission_classes = (IsAuthenticated,)
 
     @staticmethod
@@ -57,5 +56,5 @@ class UserDashboard(APIView):
         listings_ids = [listing.listing_id for listing in user_contacts]
         user_listings = Listing.objects.filter(id__in=listings_ids)
         user_listings_data = ListingSerializer(user_listings, many=True)
-        
+
         return Response(user_listings_data.data)
