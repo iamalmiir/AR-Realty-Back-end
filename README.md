@@ -24,19 +24,28 @@ Install all requirements: `pip install -r requirements.txt`
 
 ## Description
 
-This application allows you to add real estate properties for sales as well as manage realtor accounts that are selling those properties. You can do so by using the Django admin panel or by sending http requests to the API endpoints for specific action. This app is the part of the AR Realty front end website which can be found [here](https://ar-realty-client.vercel.app/). This app is using Cloudinary to store media files for listings, realtors, users, and all other media related to your website. Cloudinary is good to quickly create, manage, and deliver digital experiences across any browser, device, or bandwidth.
+This application allows you to add real estate properties for sales as well as manage realtor accounts that are selling
+those properties. You can do so by using the Django admin panel or by sending http requests to the API endpoints for
+specific action. This app is the part of the AR Realty front end website which can be
+found [here](https://ar-realty-client.vercel.app/). This app is using Cloudinary to store media files for listings,
+realtors, users, and all other media related to your website. Cloudinary is good to quickly create, manage, and deliver
+digital experiences across any browser, device, or bandwidth.
 
 ## Technologies used
 
 - Django
-  - Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced developers, Django takes care of much of the hassle of web development.
+    - Django is a high-level Python web framework that enables rapid development of secure and maintainable websites.
+      Built by experienced developers, Django takes care of much of the hassle of web development. I highly encourage
+      you to read more [about Django](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Introduction).
 - Django REST framework
 
-  - Lets you create RESTful APIs: A way to transfer information between an interface and a database in a simple way. DRF, as much as Django, makes everything simple and easier. Learn more [here](https://www.django-rest-framework.org/).
+    - Lets you create RESTful APIs: A way to transfer information between an interface and a database in a simple way.
+      DRF, as much as Django, makes everything simple and easier. Learn
+      more [here](https://www.django-rest-framework.org/).
 
 ### Future development
 
 - In the future I aim to implement
-  - Functionality for managing rental listings.
-  - Image optimization when uploading
-  - More security measures
+    - Functionality for managing rental listings.
+    - Image optimization when uploading
+    - More security measures
