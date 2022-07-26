@@ -15,7 +15,7 @@ class ListingList(generics.ListCreateAPIView):
     pagination_class = SixResultsPagination
 
 
-# Get the Property object by filtering by slug
+# Get the Property object by slug
 class ListingDetail(generics.RetrieveAPIView):
     lookup_field = "slug"
     serializer_class = ListingSerializer
