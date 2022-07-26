@@ -18,7 +18,7 @@ As part of the [AR Realty](https://ar-realty-client.vercel.app/) website, this i
 > Please make sure to create your own .env file with all necessary credentials before you continue. [^1] [^2]
 
 [^1]: You can see `.env.example` file.
-[^2]: _Following commands are for macOS_
+[^2]: _Following commands are for macOS or Ubuntu_
 
 Create virtual environment: `python -m venv ./venv`
 
@@ -29,14 +29,18 @@ Install all requirements: `pip install -r requirements.txt`
 ## Technologies used
 
 - Django
-  - Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced developers, Django takes care of much of the hassle of web development.
+    - Django is a high-level Python web framework that enables rapid development of secure and maintainable websites.
+      Built by experienced developers, Django takes care of much of the hassle of web development. I highly encourage
+      you to read more [about Django](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Introduction).
 - Django REST framework
 
-  - Lets you create RESTful APIs: A way to transfer information between an interface and a database in a simple way. DRF, as much as Django, makes everything simple and easier. Learn more [here](https://www.django-rest-framework.org/).
+    - Lets you create RESTful APIs: A way to transfer information between an interface and a database in a simple way.
+      DRF, as much as Django, makes everything simple and easier. Learn
+      more [here](https://www.django-rest-framework.org/).
 
 ### Future development
 
 - In the future I aim to implement
-  - Functionality for managing rental listings.
-  - Image optimization when uploading
-  - More security measures
+    - Functionality for managing rental listings.
+    - Image optimization when uploading
+    - More security measures
