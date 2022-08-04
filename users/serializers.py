@@ -12,8 +12,10 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         password = validated_data.pop("password", None)
         registered_user = self.Meta.model(**validated_data)
+        
         if password is not None:
             registered_user.set_password(password)
+
         registered_user.save()
         return registered_user
 
