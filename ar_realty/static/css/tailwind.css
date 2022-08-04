@@ -4,3 +4,12 @@
 
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../webfonts//Montserrat-Medium.ttf) format('truetype');
+}
+
+* {
+    font-family: Montserrat, sans-serif;
+
+}

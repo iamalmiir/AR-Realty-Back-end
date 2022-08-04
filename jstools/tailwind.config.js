@@ -3,6 +3,9 @@ module.exports = {
   content: ['../ar_realty/static/css/**/*.css', '../templates/**/*.{html,js}'],
   theme: {
     extend: {
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
+      },
       colors: {
         primaryDark: '#0077b6',
         primaryLight: '#457b9d',
