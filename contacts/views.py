@@ -12,17 +12,18 @@ class CreateInquiry(ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
-        user_id, inquiry = self.request.user.id, self.request.data
-        inquiry["user_id"] = user_id
-        listing_id = inquiry["listing_id"]
+        user, inquiry = self.request.user, self.request.data
+        print(self.request.data)
+        inquiry["user_id"] = user.id
+        inquiry["name"] = user.full_name
+        inquiry["email"] = user.email
 
-        listing_exists = Listing.objects.filter(id=listing_id).exists()
-        inquiry_exists = Inquiry.objects.filter(listing_id=listing_id, user_id=user_id).exists()
-
-        if listing_exists and not inquiry_exists:
-            raise ValueError("User already has an inquiry for this listing")
-        else:
+        inquiry_exists = Inquiry.objects.filter(listing_id=inquiry["listing_id"], user_id=user.id).exists()
+        listing_exists = Listing.objects.filter(id=inquiry["listing_id"]).exists()
+        if not inquiry_exists and listing_exists:
             serializer.save(**inquiry)
+        else:
+            raise ValueError("User already has an inquiry for this listing or listing does not exist")
 
     def get_queryset(self):
         user_id = self.request.user.id

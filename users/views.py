@@ -1,15 +1,12 @@
-from decouple import config
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.backends import TokenBackend
 
 from contacts.models import Inquiry
 from properties.models import Listing
 from properties.serializers import ListingSerializer
-from users.models import User
-from users.serializers import RegisterUserSerializer, UserSerializer
+from users.serializers import RegisterUserSerializer
 
 
 class RegisterView(APIView):
@@ -30,21 +27,11 @@ class UserView(APIView):
 
     @staticmethod
     def get(request):
-        try:
-            access_token = request.headers.get("Authorization").split(" ")[1]
-        except AttributeError:
-            return Response({"message": "Unable to authorize"}, status.HTTP_400_BAD_REQUEST)
-
-        data = TokenBackend(algorithm="HS512", signing_key=config("SECRET_KEY")).decode(
-            access_token
-        )
-        user = User.objects.filter(id=data.get("user_id")).first()
-
-        if user:
-            user_data = UserSerializer(user)
-            return Response(user_data.data)
-
-        return Response({"message": "Unable to authorize"}, status=status.HTTP_400_BAD_REQUEST)
+        remove_data = ["password", "_state", "is_superuser", "is_staff", "is_active", "date_joined", "last_login",
+                       "start_date"]
+        user_data = request.user.__dict__
+        user = {key: user_data[key] for key in user_data if key not in remove_data}
+        return Response(user, status=status.HTTP_200_OK)
 
 
 class UserDashboard(APIView):
