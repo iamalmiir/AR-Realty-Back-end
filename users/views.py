@@ -17,11 +17,14 @@ class RegisterView(APIView):
         serializer = RegisterUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "Nice! You are now registered."}, status=status.HTTP_201_CREATED)
+
+        if serializer.errors.get('user_name', None) or serializer.errors.get('email', None):
+            return Response({"message": "User name or email is already taken"}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"message": "Something went wrong. Please try again."}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Decode token from request headers and get user id
 class UserView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -40,8 +43,7 @@ class UserDashboard(APIView):
     @staticmethod
     def get(request):
         user_contacts = Inquiry.objects.order_by("-contact_date").filter(user_id=request.user.id)
-        listings_ids = [listing.listing_id for listing in user_contacts]
-        user_listings = Listing.objects.filter(id__in=listings_ids)
+        user_listings = Listing.objects.filter(id__in=[listing.listing_id for listing in user_contacts])
         user_listings_data = ListingSerializer(user_listings, many=True)
 
         return Response(user_listings_data.data)
