@@ -3,12 +3,11 @@ from uuid import uuid4
 
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.utils import timezone
 from django.urls import reverse
 from multiselectfield import MultiSelectField
 
-from realtors.models import Realtor
 from properties.choices import COOLING_CHOICES, HEATING_CHOICES, US_STATES, LISTING_TYPES
+from realtors.models import Realtor
 
 LISTING_PHOTOS = "photos/%Y/%m/%d/"
 
