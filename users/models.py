@@ -11,10 +11,10 @@ DEFAULT_AVATAR_URL = (
 
 
 class CustomAccountManager(BaseUserManager):
-    def create_user(self, email, user_name, full_name, password):
+    def create_user(self, email, username, full_name, password):
         user = self.model(
             email=self.normalize_email(email),
-            user_name=user_name,
+            username=username,
             full_name=full_name,
         )
 
@@ -22,17 +22,17 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, user_name, full_name, password):
+    def create_superuser(self, email, username, full_name, password):
         user = self.create_user(
             email=self.normalize_email(email),
             password=password,
-            user_name=user_name,
+            username=username,
             full_name=full_name,
         )
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
-        user.user_name = user_name
+        user.username = username
         user.first_name = full_name
         user.save()
         return user
@@ -47,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=50,
         unique=True,
     )
-    user_name = models.CharField(
+    username = models.CharField(
         _("user name"),
         max_length=15,
         unique=True,
@@ -72,8 +72,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomAccountManager()
 
-    USERNAME_FIELD = "user_name"
+    USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email", "full_name"]
 
     def __str__(self):
-        return self.user_name
+        return self.username

@@ -24,7 +24,7 @@ class RegisterUser(APIView):
                     {"message": "Nice! You are now registered."}, status=status.HTTP_201_CREATED
                 )
 
-            if serializer.errors.get("user_name", None) or serializer.errors.get("email", None):
+            if serializer.errors.get("username", None) or serializer.errors.get("email", None):
                 return Response(
                     {"message": "User name or email is already taken"},
                     status=status.HTTP_400_BAD_REQUEST,
@@ -43,6 +43,19 @@ class UserView(APIView):
 
     @staticmethod
     def get(request):
+        # get reqest headers
+        dashboard_data = request.headers.get("Dashboard", None)
+        if dashboard_data == "true":
+            user_contacts = Inquiry.objects.order_by("-contact_date").filter(
+                user_id=request.user.id
+            )
+            user_listings = Listing.objects.filter(
+                id__in=[listing.listing_id for listing in user_contacts]
+            )
+            user_listings_data = ListingSerializer(user_listings, many=True)
+
+            return Response(user_listings_data.data)
+
         remove_data = [
             "password",
             "_state",
@@ -56,17 +69,3 @@ class UserView(APIView):
         user_data = request.user.__dict__
         user = {key: user_data[key] for key in user_data if key not in remove_data}
         return Response(user, status=status.HTTP_200_OK)
-
-
-class UserDashboard(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    @staticmethod
-    def get(request):
-        user_contacts = Inquiry.objects.order_by("-contact_date").filter(user_id=request.user.id)
-        user_listings = Listing.objects.filter(
-            id__in=[listing.listing_id for listing in user_contacts]
-        )
-        user_listings_data = ListingSerializer(user_listings, many=True)
-
-        return Response(user_listings_data.data)

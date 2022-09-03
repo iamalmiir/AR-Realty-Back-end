@@ -10,7 +10,7 @@ class UserAdminConfig(UserAdmin):
     # Display options for the admin site are defined here.
     list_display = (
         "email",
-        "user_name",
+        "username",
         "full_name",
         "is_staff",
         "is_superuser",
@@ -19,14 +19,14 @@ class UserAdminConfig(UserAdmin):
     # The fields to display in the admin site are defined here.
     list_filter = ("email", "is_staff", "is_superuser", "is_active")
     # The fields to search in the admin site are defined here.
-    search_fields = ("email", "user_name", "full_name")
+    search_fields = ("email", "username", "full_name")
     # Ordering options for the admin site are defined here.
     ordering = ("-start_date",)
     fieldsets = (
         (None, {"fields": ("avatar", "email", "password")}),
         (
             "Personal info",
-            {"fields": ("user_name", "full_name", "start_date")},
+            {"fields": ("username", "full_name", "start_date")},
         ),
         (
             "Permissions",

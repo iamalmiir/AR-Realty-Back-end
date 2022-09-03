@@ -8,7 +8,7 @@ from realtors.serializers import RealtorSerializer
 class RealtorList(generics.ListCreateAPIView):
     queryset = Realtor.objects.all()
     serializer_class = RealtorSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAdminUser,)
 
 
 # Get the Realtor object by ID
