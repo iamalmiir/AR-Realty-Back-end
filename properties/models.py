@@ -13,7 +13,6 @@ LISTING_PHOTOS = "photos/%Y/%m/%d/"
 
 
 class Listing(models.Model):
-    realtor = models.ForeignKey(Realtor, related_name="realtor", on_delete=models.DO_NOTHING)
     id = models.UUIDField(
         primary_key=True,
         unique=True,
@@ -53,6 +52,7 @@ class Listing(models.Model):
     is_published = models.BooleanField(default=True)
     publishedAt = models.CharField(max_length=100, blank=True, null=True)
     pub_date = models.DateTimeField(default=datetime.today(), blank=True)
+    realtor = models.ForeignKey(Realtor, related_name="realtor", on_delete=models.DO_NOTHING)
 
     class Meta:
         unique_together = ("realtor", "pub_date")
