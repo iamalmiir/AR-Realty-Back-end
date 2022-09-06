@@ -19,6 +19,7 @@ class ListingList(generics.ListCreateAPIView):
 class ListingDetail(generics.RetrieveAPIView):
     lookup_field = "slug"
     serializer_class = ListingSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         slug = self.kwargs.get("slug")
@@ -33,9 +34,9 @@ class SearchQuery(generics.ListAPIView):
         q = self.request.query_params.get("q")
 
         return (
-                Listing.objects.filter(address__icontains=q)
-                or Listing.objects.filter(city__icontains=q)
-                or Listing.objects.filter(state__icontains=get_state_abbreviation(q))
-                or Listing.objects.filter(zipcode__icontains=q)
-                or Listing.objects.filter(title__icontains=q)
+            Listing.objects.filter(address__icontains=q)
+            or Listing.objects.filter(city__icontains=q)
+            or Listing.objects.filter(state__icontains=get_state_abbreviation(q))
+            or Listing.objects.filter(zipcode__icontains=q)
+            or Listing.objects.filter(title__icontains=q)
         )
