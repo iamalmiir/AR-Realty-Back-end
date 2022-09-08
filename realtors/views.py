@@ -1,5 +1,5 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
+from rest_framework import permissions
 
 from realtors.models import Realtor
 from realtors.serializers import RealtorSerializer
@@ -8,14 +8,14 @@ from realtors.serializers import RealtorSerializer
 class RealtorList(generics.ListCreateAPIView):
     queryset = Realtor.objects.all()
     serializer_class = RealtorSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (permissions.IsAdminUser,)
 
 
 # Get the Realtor object by ID
 class RealtorDetail(generics.RetrieveAPIView):
     lookup_field = "slug"
     serializer_class = RealtorSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         slug = self.kwargs.get("slug")
