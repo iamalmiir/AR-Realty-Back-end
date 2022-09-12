@@ -7,7 +7,6 @@ urlpatterns = [
     path("listings/", views.ListingList.as_view()),
     path("listings/quicksearch/", views.SearchQuery.as_view()),
     path("listings/realtor/", views.ListingDetailTest.as_view()),
-    # dwdw
     path("listings/<slug:slug>/", views.ListingDetail.as_view()),
 ]
 
