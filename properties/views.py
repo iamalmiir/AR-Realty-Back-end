@@ -29,6 +29,7 @@ class ListingDetail(generics.RetrieveAPIView):
 # Get listing based on search query
 class SearchQuery(generics.ListAPIView):
     serializer_class = ListingSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         q = self.request.query_params.get("q")
@@ -40,3 +41,12 @@ class SearchQuery(generics.ListAPIView):
             or Listing.objects.filter(zipcode__icontains=q)
             or Listing.objects.filter(title__icontains=q)
         )
+
+
+class ListingDetailTest(generics.ListCreateAPIView):
+    serializer_class = ListingSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+        realtor = self.request.headers.get("Realtor")
+        return Listing.objects.filter(realtor__slug=realtor)
