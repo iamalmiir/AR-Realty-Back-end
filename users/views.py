@@ -70,7 +70,28 @@ class UserView(APIView):
         return Response(user, status=status.HTTP_200_OK)
 
     @staticmethod
-    def delete(self, request):
+    def put(request):
+        profanity_filter(request.data)
+        print('yes')
+        user = User.objects.get(id=request.user.id)
+        serializer = RegisterUserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "User updated successfully"}, status=status.HTTP_200_OK)
+
+        if serializer.errors.get("username", None) or serializer.errors.get("email", None):
+            return Response(
+                {"message": "User name or email is already taken"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return Response(
+            {"message": "Something went wrong. Please try again."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    @staticmethod
+    def delete(request):
         try:
             user = User.objects.get(id=request.user.id)
             if user.id != request.user.id:
