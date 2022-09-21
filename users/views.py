@@ -72,7 +72,6 @@ class UserView(APIView):
     @staticmethod
     def put(request):
         profanity_filter(request.data)
-        print('yes')
         user = User.objects.get(id=request.user.id)
         serializer = RegisterUserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
