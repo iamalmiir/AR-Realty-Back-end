@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from contacts.models import Inquiry
-from properties.models import Listing
-from properties.serializers import ListingSerializer
+from listings.models import Listing
+from listings.serializers import ListingSerializer
 from users.helpers.profanity_filters import profanity_filter
 from users.models import User
 from users.serializers import RegisterUserSerializer
@@ -71,7 +71,6 @@ class UserView(APIView):
 
     @staticmethod
     def put(request):
-<<<<<<< HEAD
         profanity_filter(request.data)
         user = User.objects.get(id=request.user.id)
         serializer = RegisterUserSerializer(user, data=request.data, partial=True)
@@ -80,25 +79,21 @@ class UserView(APIView):
             return Response({"message": "User updated successfully"}, status=status.HTTP_200_OK)
 
         if serializer.errors.get("username", None) or serializer.errors.get("email", None):
-=======
-        try:
-            user = User.objects.get(id=request.user.id)
-            profanity_filter(request.data)
-            serializer = RegisterUserSerializer(user, data=request.data, partial=True)
-            print(request.data)
-            print(serializer)
-            if serializer.is_valid():
-                serializer.save()
+            try:
+                user = User.objects.get(id=request.user.id)
+                profanity_filter(request.data)
+                serializer = RegisterUserSerializer(user, data=request.data, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(
+                        {"message": "User updated successfully."}, status=status.HTTP_200_OK
+                    )
                 return Response(
-                    {"message": "User updated successfully."}, status=status.HTTP_200_OK
+                    {"message": "Something went wrong. Please try again."},
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
->>>>>>> 3dc7e0ddce414ffcc126957dd93cdbc901931fc6
-            return Response(
-                {"message": "Something went wrong. Please try again."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        except ValueError as e:
-            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            except ValueError as e:
+                return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     @staticmethod
     def delete(request):

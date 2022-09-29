@@ -40,8 +40,6 @@ class BusinessContactAdmin(admin.ModelAdmin):
 def delete_all_inquiries(modeladmin, request, queryset):
     queryset.delete()
 
-    modeladmin.message_user(
-        request,
-        "All inquiries have been deleted")
+    modeladmin.message_user(request, "All inquiries have been deleted")
 
     return None

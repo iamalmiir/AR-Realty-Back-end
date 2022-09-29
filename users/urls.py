@@ -5,7 +5,6 @@ from users import views
 
 urlpatterns = [
     path("me/", views.UserView.as_view(), name="user"),
-    # path("<uuid:id>/", views.UpdateDeleteUserViewSet.as_view(), name="user"),
     path("register/", views.RegisterUser.as_view(), name="register"),
 ]
 

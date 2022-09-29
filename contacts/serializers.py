@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from contacts.models import Inquiry, BusinessInquiry
-from properties.serializers import ListingSerializer
+from listings.serializers import ListingSerializer
 
 
 class InquirySerializer(serializers.ModelSerializer):
