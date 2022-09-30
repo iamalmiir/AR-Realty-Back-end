@@ -26,7 +26,7 @@ class CreateInquiry(ListCreateAPIView):
             serializer.save(**inquiry)
         else:
             raise ValueError(
-                "User already has an inquiry for this listing or listing does not exist"
+                "User already has an inquiry for this listing or listing does not exist."
             )
 
     def get_queryset(self):
