@@ -8,7 +8,7 @@ from users.models import User
 
 class Inquiry(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    listing = models.ForeignKey(Listing, on_delete=models.DO_NOTHING)
+    listing = models.UUIDField(max_length=255, null=False, blank=False)
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100, blank=True, null=True)
