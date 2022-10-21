@@ -12,7 +12,7 @@ class ContactAdmin(admin.ModelAdmin):
         "email",
         "phone",
     )
-    search_fields = ("listing", "listing_id", "name", "email", "phone", "message", "user_id")
+    search_fields = ("listing", "name", "email", "phone", "message", "user_id")
     list_per_page = 25
 
 

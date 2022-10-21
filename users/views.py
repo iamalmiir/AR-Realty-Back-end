@@ -47,14 +47,13 @@ class UserView(APIView):
         dashboard_data = request.headers.get("Dashboard", None)
         if dashboard_data == "true":
             user_contacts = Inquiry.objects.order_by("-contact_date").filter(
-                user_id=request.user.id
+                user=request.user.id
             )
             user_listings = Listing.objects.filter(
-                id__in=[listing.listing_id for listing in user_contacts]
+                id__in=[listing.listing for listing in user_contacts]
             )
-            user_listings_data = ListingSerializer(user_listings, many=True)
-            return Response(user_listings_data.data)
-
+            user_listings = ListingSerializer(user_listings, many=True).data
+            return Response(user_listings, status=status.HTTP_200_OK)
         remove_data = [
             "password",
             "_state",
@@ -71,7 +70,7 @@ class UserView(APIView):
 
     @staticmethod
     def put(request):
-        profanity_filter(request.data)
+        # profanity_filter(request.data)
         user = User.objects.get(id=request.user.id)
         serializer = RegisterUserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():

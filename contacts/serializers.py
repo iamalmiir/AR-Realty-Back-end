@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
 from contacts.models import Inquiry, BusinessInquiry
-from listings.serializers import ListingSerializer
+from realtors.serializers import RealtorSerializer
 
 
 class InquirySerializer(serializers.ModelSerializer):
-    listing_details = ListingSerializer(read_only=True, many=True)
+    realtor = RealtorSerializer(read_only=True)
 
     class Meta:
         model = Inquiry

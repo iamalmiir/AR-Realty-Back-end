@@ -16,7 +16,18 @@ class CreateInquiry(ListCreateAPIView):
         inquiry["user_id"] = user.id
         inquiry["name"] = user.full_name
         inquiry["email"] = user.email
-        serializer.save(**inquiry)
+
+        inquiry_exists = Inquiry.objects.filter(
+            listing=inquiry["listing"], user_id=user.id
+        ).exists()
+        
+        listing_exists = Listing.objects.filter(id=inquiry["listing"]).exists()
+        if not inquiry_exists and listing_exists:
+            serializer.save(**inquiry)
+        else:
+            raise ValueError(
+                "User already has an inquiry for this listing or listing does not exist."
+            )
 
     def get_queryset(self):
         user_id = self.request.user.id
