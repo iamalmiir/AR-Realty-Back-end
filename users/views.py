@@ -46,9 +46,7 @@ class UserView(APIView):
     def get(request):
         dashboard_data = request.headers.get("Dashboard", None)
         if dashboard_data == "true":
-            user_contacts = Inquiry.objects.order_by("-contact_date").filter(
-                user=request.user.id
-            )
+            user_contacts = Inquiry.objects.order_by("-contact_date").filter(user=request.user.id)
             user_listings = Listing.objects.filter(
                 id__in=[listing.listing for listing in user_contacts]
             )
@@ -64,6 +62,18 @@ class UserView(APIView):
             "last_login",
             "start_date",
         ]
+
+        already_made_inquiry = request.headers.get("CheckInquiry", None)
+        if already_made_inquiry == "check":
+            listing_id = request.headers.get("ListingId", None)
+            if listing_id:
+                # Check if the user has already made an inquiry for this listing
+                if Inquiry.objects.filter(user=request.user.id, listing=listing_id).exists():
+                    return Response(
+                        {"inquiry_made": "true"},
+                        status=status.HTTP_200_OK,
+                    )
+
         user_data = request.user.__dict__
         user = {key: user_data[key] for key in user_data if key not in remove_data}
         return Response(user, status=status.HTTP_200_OK)
