@@ -20,11 +20,23 @@ As part of the [AR Realty](https://ar-realty-client.vercel.app/) website, this i
 [^1]: You can see `.env.example` file.
 [^2]: _Following commands are for Unix-like operating systems_
 
-Create virtual environment: `python -m venv ./venv`
+Create virtual environment:
 
-Activate virtual environment: `source ./venv/bin/activate`
+```bash
+python -m venv ./venv
+```
 
-Install all requirements: `pip install -r requirements.txt`
+Activate virtual environment:
+
+```bash
+source ./venv/bin/activate
+```
+
+Install all requirements:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Technologies used
 
