@@ -1,4 +1,3 @@
-from unicodedata import lookup
 from rest_framework import serializers
 
 from listings.models import Listing
