@@ -39,7 +39,7 @@ class CustomAccountManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    id = models.UUIDField(default=uuid4, primary_key=True)
     avatar = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True)
     default_avatar = models.CharField(max_length=255, default=DEFAULT_AVATAR_URL)
     email = models.EmailField(
