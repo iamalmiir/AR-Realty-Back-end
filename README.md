@@ -13,6 +13,12 @@
 
 As part of the [AR Realty](https://ar-realty-client.vercel.app/) website, this is a front-end application that allows you to add and manage your realtor account's real estate properties. You can achieve this by using the Django admin panel or sending HTTP requests to the API endpoints for specific actions. This app utilizes [Cloudinary](https://cloudinary.com/) to fast and efficiently store media files for listings, realtors, users, and all other media related to your website.
 
+## Screenshots
+
+Admin Panel
+<img src="https://res.cloudinary.com/iamalmiir/image/upload/v1669624330/django_admin_panel1_et7wom.png" alt="Admin Panel 1" />
+<img src="https://res.cloudinary.com/iamalmiir/image/upload/v1669624442/django_admin_panel2_duuzsq.png" alt="Admin Panel 2" />
+
 ## Instalation
 
 > Please make sure to create your own .env file with all necessary credentials before you continue. [^1] [^2]
