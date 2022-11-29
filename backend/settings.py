@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
 ]
 
-JET_DEFAULT_THEME = 'green'
+JET_DEFAULT_THEME = 'light-gray'
 
 JET_THEMES = [
     {
