@@ -1,5 +1,5 @@
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from contacts.models import Inquiry, BusinessInquiry
 from contacts.serializers import InquirySerializer, BusinessInquirySerializer
@@ -9,7 +9,7 @@ from listings.models import Listing
 # Create InquiryViewSet
 class CreateInquiry(generics.ListCreateAPIView):
     serializer_class = InquirySerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
         user, inquiry = self.request.user, self.request.data
@@ -31,6 +31,16 @@ class CreateInquiry(generics.ListCreateAPIView):
     def get_queryset(self):
         user_id = self.request.user.id
         return Inquiry.objects.filter(user_id=user_id)
+
+
+class RemoveInquiry(generics.DestroyAPIView):
+    lookup_field = "listing"
+    serializer_class = InquirySerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        listing_id = self.kwargs["listing"]
+        return Inquiry.objects.filter(listing=listing_id, user_id=self.request.user.id)
 
 
 class CreateBusinessInquiry(generics.ListCreateAPIView):

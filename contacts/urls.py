@@ -5,6 +5,7 @@ from contacts import views
 
 urlpatterns = [
     path("inquiries/", views.CreateInquiry.as_view()),
+    path("inquiries/<str:listing>/", views.RemoveInquiry.as_view()),
     path("contact/business-inquiries/", views.CreateBusinessInquiry.as_view())
 ]
 
