@@ -35,18 +35,29 @@ class SearchQuery(generics.ListAPIView):
         q = self.request.query_params.get("q")
 
         return (
-            Listing.objects.filter(address__icontains=q)
-            or Listing.objects.filter(city__icontains=q)
-            or Listing.objects.filter(state__icontains=get_state_abbreviation(q))
-            or Listing.objects.filter(zipcode__icontains=q)
-            or Listing.objects.filter(title__icontains=q)
+                Listing.objects.filter(address__icontains=q)
+                or Listing.objects.filter(city__icontains=q)
+                or Listing.objects.filter(state__icontains=get_state_abbreviation(q))
+                or Listing.objects.filter(zipcode__icontains=q)
+                or Listing.objects.filter(title__icontains=q)
         )
 
 
-class ListingDetailTest(generics.ListCreateAPIView):
+class RealtorListings(generics.ListCreateAPIView):
     serializer_class = ListingSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         realtor = self.request.headers.get("Realtor")
         return Listing.objects.filter(realtor__slug=realtor)
+
+
+# Return 3 random listings excluding the current listing
+class RandomListings(generics.ListAPIView):
+    serializer_class = ListingSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+        slug = self.request.query_params.get("slug")
+        print(slug)
+        return Listing.objects.filter(is_published=True).exclude(slug=slug).order_by("?")[:3]
