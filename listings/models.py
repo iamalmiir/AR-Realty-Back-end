@@ -9,7 +9,7 @@ from multiselectfield import MultiSelectField
 from listings.choices import COOLING_CHOICES, HEATING_CHOICES, US_STATES, LISTING_TYPES
 from realtors.models import Realtor
 
-LISTING_PHOTOS = "photos/%Y/%m/%d/"
+LISTING_PHOTOS = "ar/listings/%Y/%m/%d/"
 
 
 class Listing(models.Model):
