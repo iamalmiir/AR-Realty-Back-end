@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 DEFAULT_AVATAR_URL = (
-    "https://res.cloudinary.com/iamalmiir/image/upload/v1657350671/catAvatar_iakq5p.jpg"
+    "https://res.cloudinary.com/iamalmiir/image/upload/v1672591048/catAvatar_iakq5p_fm3hei.webp"
 )
 
 
