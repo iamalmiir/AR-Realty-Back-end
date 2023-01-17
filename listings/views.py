@@ -1,5 +1,6 @@
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from rest_framework import generics
 from rest_framework import permissions
 
@@ -62,6 +63,7 @@ class RealtorListings(generics.ListCreateAPIView):
         return Listing.objects.filter(realtor__slug=realtor)
 
     @method_decorator(cache_page(60 * 60 * 24))
+    @method_decorator(vary_on_headers('Realtor'))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
@@ -73,9 +75,9 @@ class RandomListings(generics.ListAPIView):
 
     def get_queryset(self):
         slug = self.request.query_params.get("slug")
-        print(slug)
         return Listing.objects.filter(is_published=True).exclude(slug=slug).order_by("?")[:3]
 
     @method_decorator(cache_page(60 * 60 * 24))
+    @method_decorator(vary_on_headers('slug'))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)

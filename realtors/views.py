@@ -25,7 +25,6 @@ class RealtorDetail(generics.RetrieveAPIView):
 
     def get_queryset(self):
         slug = self.kwargs.get("slug")
-        # if not found DRF will raise a 404 error
         return Realtor.objects.filter(slug=slug)
 
     @method_decorator(cache_page(60 * 60 * 24))
