@@ -33,6 +33,7 @@ class SearchQuery(generics.ListAPIView):
 
     def get_queryset(self):
         q = self.request.query_params.get("q")
+        # Based on the search query, filter the queryset and return the results to the user
 
         return (
                 Listing.objects.filter(address__icontains=q)
