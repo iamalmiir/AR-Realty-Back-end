@@ -16,6 +16,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 INSTALLED_APPS = [
     # Django apps
+    "jet.dashboard",
     "jet",
     "django.contrib.admin",
     "django.contrib.auth",
