@@ -7,9 +7,6 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path("jet/", include("jet.urls", "jet")),  # Django JET URLS
-    path(
-        "jet/dashboard/", include("jet.dashboard.urls", "jet-dashboard")
-    ),  # Django JET dashboard URLS
     path("admin/", admin.site.urls),
     path("api/", include("realtors.urls")),
     path("api/", include("listings.urls")),
