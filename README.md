@@ -11,7 +11,7 @@
 
 ## Description
 
-As part of the [AR Realty](https://ar-realty.iamalmir.tech/) website, this is a back-end application that allows you to manage Django-powered website through web interface. You can achieve this by using the Django admin panel or sending HTTP requests to the API endpoints for specific actions. This app utilizes [Cloudinary](https://cloudinary.com/) to fast and efficiently store media files for listings, realtors, users, and all other media related to website.
+As part of the AR Realty website, this is a back-end application that allows you to manage Django-powered websites through a web interface. You can achieve this by using the Django admin panel or sending HTTP requests to the API endpoints for specific actions. This app utilizes Cloudinary to fast and efficiently store media files for listings, realtors, users, and all other media related to the website.
 
 ## Screenshots
 
