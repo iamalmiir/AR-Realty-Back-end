@@ -78,7 +78,8 @@ class RandomListings(generics.ListAPIView):
         slug = self.request.query_params.get("slug")
         return Listing.objects.filter(is_published=True).exclude(slug=slug).order_by("?")[:3]
 
-    @method_decorator(cache_page(60 * 60 * 24))
+    # Cache the response for 2 hours
+    @method_decorator(cache_page(60 * 60 * 2))
     @method_decorator(vary_on_headers('slug'))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
