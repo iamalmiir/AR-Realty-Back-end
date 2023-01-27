@@ -63,11 +63,6 @@ class RealtorListings(generics.ListCreateAPIView):
         realtor = self.request.headers.get("Realtor")
         return Listing.objects.filter(realtor__slug=realtor)
 
-    @method_decorator(cache_page(60 * 60 * 24))
-    @method_decorator(vary_on_headers('Realtor'))
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
-
 
 # Return 3 random listings excluding the current listing
 class RandomListings(generics.ListAPIView):
