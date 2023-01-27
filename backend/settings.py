@@ -166,7 +166,7 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
     "ALGORITHM": "HS512",
-    "SIGNING_KEY": config("SECRET_KEY"),
+    "SIGNING_KEY": config("JWT_SIGN_KEY"),
     "VERIFYING_KEY": None,
     "AUDIENCE": None,
     "ISSUER": None,

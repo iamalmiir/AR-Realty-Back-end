@@ -9,15 +9,16 @@ DEFAULT_AVATAR_URL = (
     "https://res.cloudinary.com/iamalmiir/image/upload/v1672591048/catAvatar_iakq5p_fm3hei.webp"
 )
 
+USER_AVATAR = "ar/users/avatar/%Y/%m/%d/"
+
 
 class CustomAccountManager(BaseUserManager):
     def create_user(self, email, username, full_name, password):
         user = self.model(
             email=self.normalize_email(email),
             username=username,
-            full_name=full_name,
+            full_name=full_name
         )
-
         user.set_password(password)
         user.save()
         return user
@@ -40,8 +41,7 @@ class CustomAccountManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(default=uuid4, primary_key=True)
-    avatar = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, )
-    default_avatar = models.CharField(max_length=255, default=DEFAULT_AVATAR_URL)
+    avatar = models.ImageField(upload_to=USER_AVATAR, blank=True)
     email = models.EmailField(
         _("email address"),
         max_length=50,
@@ -56,7 +56,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         _("full name"),
         max_length=100,
     )
-    photo = models.ImageField(_("profile picture"), blank=True)
     start_date = models.DateTimeField(
         _("start date"),
         default=timezone.now,
@@ -71,7 +70,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     objects = CustomAccountManager()
-
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email", "full_name"]
 
