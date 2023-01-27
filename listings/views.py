@@ -55,15 +55,6 @@ class SearchQuery(generics.ListAPIView):
         )
 
 
-class RealtorListings(generics.ListCreateAPIView):
-    serializer_class = ListingSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    def get_queryset(self):
-        realtor = self.request.headers.get("Realtor")
-        return Listing.objects.filter(realtor__slug=realtor)
-
-
 # Return 3 random listings excluding the current listing
 class RandomListings(generics.ListAPIView):
     serializer_class = ListingSerializer
