@@ -11,7 +11,7 @@ cryptography==38.0.1
 defusedxml==0.7.1
 Deprecated==1.2.13
 dj-database-url==1.0.0
-Django==4.1.4
+Django==4.1.6
 django-cloudinary-storage==0.3.0
 django-cors-headers==3.13.0
 django-filter==22.1
