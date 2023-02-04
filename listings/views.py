@@ -32,10 +32,6 @@ class ListingDetail(generics.RetrieveAPIView):
         slug = self.kwargs.get("slug")
         return Listing.objects.filter(slug=slug)
 
-    @method_decorator(cache_page(60 * 60 * 24))
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
-
 
 # Get listing based on search query
 class SearchQuery(generics.ListAPIView):
