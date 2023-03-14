@@ -12,6 +12,7 @@ from listings.serializers import ListingSerializer
 
 class ListingList(generics.ListAPIView):
     queryset = Listing.objects.filter(is_published=True)
+    page_size = 6
 
     serializer_class = ListingSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)

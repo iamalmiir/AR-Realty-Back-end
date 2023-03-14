@@ -41,6 +41,7 @@ class RegisterUser(APIView):
 
 class UserView(APIView):
     permission_classes = (IsAuthenticated,)
+    page_size = 6
 
     @staticmethod
     def get(request):
@@ -108,7 +109,7 @@ class UserView(APIView):
     def delete(request):
         try:
             user = User.objects.get(id=request.user.id)
-            if user.id != request.user.id:
+            if user.id is not request.user.id:
                 return Response(
                     {"message": "You are not authorized to view this user."},
                     status=status.HTTP_401_UNAUTHORIZED,
