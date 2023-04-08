@@ -23,6 +23,8 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
+    # Create superuser with email, username, full_name, password
+    # and is_admin, is_staff, is_superuser
     def create_superuser(self, email, username, full_name, password):
         user = self.create_user(
             email=self.normalize_email(email),
