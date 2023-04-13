@@ -1,5 +1,6 @@
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 
@@ -43,3 +44,10 @@ class RealtorListings(generics.ListCreateAPIView):
     def get_queryset(self):
         slug = self.kwargs.get("slug")
         return Listing.objects.filter(realtor__slug=slug)
+
+    @method_decorator(cache_page(60 * 60 * 2))
+    @method_decorator(vary_on_headers('slug'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+
