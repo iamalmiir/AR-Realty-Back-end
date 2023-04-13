@@ -4,6 +4,17 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from contacts.models import Inquiry, BusinessInquiry
 from contacts.serializers import InquirySerializer, BusinessInquirySerializer
 from listings.models import Listing
+from listings.pagination import SixResultsPagination
+
+
+class RetrieveInquiries(generics.ListAPIView):
+    serializer_class = InquirySerializer
+    pagination_class = SixResultsPagination
+    permission_classes = (IsAuthenticated,)
+    page_size = 6
+
+    def get_queryset(self):
+        return Inquiry.objects.filter(user_id=self.request.user.id).order_by("-id")
 
 
 # Create InquiryViewSet
@@ -27,10 +38,6 @@ class CreateInquiry(generics.ListCreateAPIView):
             raise ValueError(
                 "User already has an inquiry for this listing or listing does not exist."
             )
-
-    def get_queryset(self):
-        user_id = self.request.user.id
-        return Inquiry.objects.filter(user_id=user_id)
 
 
 class RemoveInquiry(generics.DestroyAPIView):

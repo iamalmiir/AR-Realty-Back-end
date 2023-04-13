@@ -12,6 +12,7 @@ from listings.serializers import ListingSerializer
 
 class ListingList(generics.ListAPIView):
     queryset = Listing.objects.filter(is_published=True)
+    page_size = 6
 
     serializer_class = ListingSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -31,10 +32,6 @@ class ListingDetail(generics.RetrieveAPIView):
     def get_queryset(self):
         slug = self.kwargs.get("slug")
         return Listing.objects.filter(slug=slug)
-
-    @method_decorator(cache_page(60 * 60 * 24))
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
 
 # Get listing based on search query
