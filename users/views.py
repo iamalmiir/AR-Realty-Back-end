@@ -39,6 +39,12 @@ class RegisterUser(APIView):
             return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
+'''
+    UserView
+    - GET: Get user data
+    - PUT: Update user data
+    - DELETE: Delete user data
+'''
 class UserView(APIView):
     permission_classes = (IsAuthenticated,)
     page_size = 6

@@ -48,7 +48,7 @@ python-decouple==3.8
 python-stdnum==1.18
 pytz==2023.3
 requests==2.29.0
-requests-toolbelt==0.10.1
+requests-toolbelt==1.0.0
 rich==13.3.5
 shortuuid==1.0.11
 six==1.16.0
