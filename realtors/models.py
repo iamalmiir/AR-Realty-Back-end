@@ -5,12 +5,14 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 
+REALTOR_IMAGE = "ar/realtors/"
+
 
 class Realtor(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     full_name = models.CharField(max_length=100)
     slug = models.SlugField(editable=False, unique=True, max_length=50, null=True, blank=True)
-    photo = models.ImageField(upload_to="ar/realtors/%Y/%m/%d/", blank=True)
+    photo = models.ImageField(upload_to=REALTOR_IMAGE, blank=True)
     description = models.TextField(blank=True)
     phone = models.CharField(max_length=15)
     email = models.CharField(max_length=50)

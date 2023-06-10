@@ -74,9 +74,12 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = "users.User"
-# CORS
-CORS_ALLOW_ALL = True
 
+# CORS only allow localhost on port 9000
+CORST_ALLOWED_ORIGINS = [
+    "https://www.realtors.com",
+]
+CORST_ALLOW_ALL_ORIGINS = False
 ROOT_URLCONF = "backend.urls"
 
 # Cloudinary settings
@@ -84,6 +87,7 @@ CLOUDINARY_STORAGE = {
     "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME"),
     "API_KEY": config("CLOUDINARY_API_KEY"),
     "API_SECRET": config("CLOUDINARY_API_SECRET"),
+    "SECURE": True,
 }
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
@@ -148,7 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type UUID
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"

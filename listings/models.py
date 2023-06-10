@@ -9,7 +9,7 @@ from multiselectfield import MultiSelectField
 from listings.choices import COOLING_CHOICES, HEATING_CHOICES, US_STATES, LISTING_TYPES
 from realtors.models import Realtor
 
-LISTING_PHOTOS = "ar-realty/listings/%Y/%m/%d/"
+LISTING_PHOTOS = "ar/listings/"
 
 
 class Listing(models.Model):
@@ -41,8 +41,8 @@ class Listing(models.Model):
     cooling = MultiSelectField(max_length=70, choices=COOLING_CHOICES, default="None")
     year_built = models.IntegerField(default=datetime.now().year)
 
-    # Media
-    photo_main = models.ImageField(upload_to=LISTING_PHOTOS, blank=True)
+    # Media fields with cloudinary plus optimization are implemented
+    photo_main = models.ImageField(upload_to=LISTING_PHOTOS, blank=False)
     photo_1 = models.ImageField(upload_to=LISTING_PHOTOS, blank=True)
     photo_2 = models.ImageField(upload_to=LISTING_PHOTOS, blank=True)
     photo_3 = models.ImageField(upload_to=LISTING_PHOTOS, blank=True)
@@ -50,13 +50,11 @@ class Listing(models.Model):
     photo_5 = models.ImageField(upload_to=LISTING_PHOTOS, blank=True)
 
     is_published = models.BooleanField(default=True)
-    publishedAt = models.CharField(max_length=100, blank=True, null=True)
-    pub_date = models.DateTimeField(default=datetime.today(), blank=True)
+    publishedAt = models.DateField(default=datetime.now, null=False)
     realtor = models.ForeignKey(Realtor, related_name="realtor", on_delete=models.DO_NOTHING)
 
     class Meta:
-        unique_together = ("realtor", "pub_date")
-        ordering = ("-pub_date",)
+        ordering = ("-publishedAt",)
 
     def __str__(self):
         return self.title
@@ -66,8 +64,6 @@ class Listing(models.Model):
 
     def save(self, *args, **kwargs):
         value = self.title + "-" + str(self.realtor.full_name)
-        normalized_date = self.pub_date.strftime("%B %d, %Y")
-        self.publishedAt = normalized_date
         self.slug = slugify(
             value,
         )
