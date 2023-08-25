@@ -61,8 +61,7 @@ class RealtorDetail(generics.RetrieveAPIView):
         return super().dispatch(*args, **kwargs)
 
 
-# Get the listings associated with a particular Realtor
-class RealtorListings(generics.ListCreateAPIView):
+class RealtorListings(generics.ListAPIView):
     # Define the lookup field as 'slug' to fetch listings
     # for a specific Realtor
     lookup_field = "slug"
