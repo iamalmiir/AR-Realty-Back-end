@@ -3,7 +3,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 
 from listings.models import Listing
 from listings.serializers import ListingSerializer
@@ -20,11 +20,11 @@ class RealtorList(generics.ListCreateAPIView):
 
     # Define permissions: If authenticated, users can list and create Realtors;
     # if not authenticated, they can only list.
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (AllowAny,)
 
-    @method_decorator(
-        cache_page(60 * 60 * 24)
-    )  # Cache the results of this view for 24 hours
+    # @method_decorator(
+    #     cache_page(60 * 60 * 24)
+    # )  # Cache the results of this view for 24 hours
     def dispatch(self, *args, **kwargs):
         # Override the dispatch method to integrate caching behavior
         return super().dispatch(*args, **kwargs)
