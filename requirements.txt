@@ -56,7 +56,7 @@ python-decouple==3.8
 python-stdnum==1.19
 pytz==2023.3.post1
 PyYAML==6.0.1
-requests==2.29.0
+requests==2.31.0
 requests-toolbelt==1.0.0
 rich==13.5.2
 shortuuid==1.0.11
