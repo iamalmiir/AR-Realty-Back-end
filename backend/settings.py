@@ -15,8 +15,8 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 INSTALLED_APPS = [
-    # Django apps
     "jet",
+    # Django apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django_filters",
     "corsheaders",
     "cloudinary",
+    "rest_framework_swagger",
     # local apps
     "realtors.apps.RealtorsConfig",
     "listings.apps.ListingsConfig",
@@ -62,6 +63,7 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
         "rest_framework.permissions.IsAuthenticated",

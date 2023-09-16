@@ -22,10 +22,13 @@ class RegisterUser(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(
-                    {"message": "Nice! You are now registered."}, status=status.HTTP_201_CREATED
+                    {"message": "Nice! You are now registered."},
+                    status=status.HTTP_201_CREATED,
                 )
 
-            if serializer.errors.get("username", None) or serializer.errors.get("email", None):
+            if serializer.errors.get("username", None) or serializer.errors.get(
+                "email", None
+            ):
                 return Response(
                     {"message": "User name or email is already taken"},
                     status=status.HTTP_400_BAD_REQUEST,
@@ -39,12 +42,14 @@ class RegisterUser(APIView):
             return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-'''
+"""
     UserView
     - GET: Get user data
     - PUT: Update user data
     - DELETE: Delete user data
-'''
+"""
+
+
 class UserView(APIView):
     permission_classes = (IsAuthenticated,)
     page_size = 6
@@ -53,7 +58,9 @@ class UserView(APIView):
     def get(request):
         dashboard_data = request.headers.get("Dashboard", None)
         if dashboard_data == "true":
-            user_contacts = Inquiry.objects.order_by("-contact_date").filter(user=request.user.id)
+            user_contacts = Inquiry.objects.order_by("-contact_date").filter(
+                user=request.user.id
+            )
             user_listings = Listing.objects.filter(
                 id__in=[listing.listing for listing in user_contacts]
             )
@@ -75,7 +82,9 @@ class UserView(APIView):
             listing_id = request.headers.get("ListingId", None)
             if listing_id:
                 # Check if the user has already made an inquiry for this listing
-                if Inquiry.objects.filter(user=request.user.id, listing=listing_id).exists():
+                if Inquiry.objects.filter(
+                    user=request.user.id, listing=listing_id
+                ).exists():
                     return Response(
                         {"inquiry_made": "true"},
                         status=status.HTTP_200_OK,
@@ -92,17 +101,24 @@ class UserView(APIView):
         serializer = RegisterUserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "User updated successfully"}, status=status.HTTP_200_OK)
+            return Response(
+                {"message": "User updated successfully"}, status=status.HTTP_200_OK
+            )
 
-        if serializer.errors.get("username", None) or serializer.errors.get("email", None):
+        if serializer.errors.get("username", None) or serializer.errors.get(
+            "email", None
+        ):
             try:
                 user = User.objects.get(id=request.user.id)
                 profanity_filter(request.data)
-                serializer = RegisterUserSerializer(user, data=request.data, partial=True)
+                serializer = RegisterUserSerializer(
+                    user, data=request.data, partial=True
+                )
                 if serializer.is_valid():
                     serializer.save()
                     return Response(
-                        {"message": "User updated successfully."}, status=status.HTTP_200_OK
+                        {"message": "User updated successfully."},
+                        status=status.HTTP_200_OK,
                     )
                 return Response(
                     {"message": "Something went wrong. Please try again."},
@@ -121,6 +137,10 @@ class UserView(APIView):
                     status=status.HTTP_401_UNAUTHORIZED,
                 )
             user.delete()
-            return Response({"message": "User deleted successfully"}, status=status.HTTP_200_OK)
+            return Response(
+                {"message": "User deleted successfully"}, status=status.HTTP_200_OK
+            )
         except User.DoesNotExist:
-            return Response({"message": "User does not exist"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"message": "User does not exist"}, status=status.HTTP_404_NOT_FOUND
+            )
